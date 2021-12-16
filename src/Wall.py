@@ -24,7 +24,7 @@ class Wall:
         if 'position' not in self.parameters:
             self.parameters['position'] = [0, 0, 0]        
         if 'width' not in self.parameters:
-            raise Exception('Parameter "width" required.')   
+            self.parameters['width'] = 0.2   
         if 'height' not in self.parameters:
             raise Exception('Parameter "height" required.')   
         if 'orientation' not in self.parameters:
@@ -69,5 +69,15 @@ class Wall:
     # Draws the faces
     def draw(self):
         # A compléter en remplaçant pass par votre code
-        pass
-  
+        gl.glPushMatrix()
+        for x in self.objects:
+            if (isinstance(x,Section)) == True:
+                gl.glRotatef(self.parameters['orientation'], 0, 0, 1)
+                x.parameters['edges'] = True
+                x.drawEdges
+                x.draw()
+            elif():
+                x.parameters['edges'] = True
+                x.drawEdges
+                x.draw()
+        gl.glPopMatrix()

@@ -64,7 +64,8 @@ class Configuration:
 
         # Clears the buffers and sets DEPTH_TEST to remove hidden surfaces
         gl.glClear(gl.GL_COLOR_BUFFER_BIT|gl.GL_DEPTH_BUFFER_BIT)                  
-        gl.glEnable(gl.GL_DEPTH_TEST)   
+        gl.glEnable(gl.GL_DEPTH_TEST)
+       
         
     # Initializes the tranformation matrix    
     def initializeTransformationMatrix(self):     
@@ -149,11 +150,20 @@ class Configuration:
     
     # Processes the MOUSEBUTTONDOWN event
     def processMouseButtonDownEvent(self):
-        pass
+        if self.event.button == 4:
+            gl.glScalef(1.1,1.1,1.1)
+        elif self.event.button == 5:
+            gl.glScalef(1/1.1, 1/1.1, 1/1.1)
     
     # Processes the MOUSEMOTION event
     def processMouseMotionEvent(self):
-        pass
+        if pygame.mouse.get_pressed()[2] == 1:
+            gl.glTranslatef(self.event.rel[0]/20, 0, 0)
+            gl.glTranslatef( 0, 0,self.event.rel[1]/20)
+        elif pygame.mouse.get_pressed()[0] == 1:
+            gl.glRotate(self.event.rel[0], 0, 0, 1)
+            gl.glRotate(self.event.rel[1], 1, 0, 0)
+
          
     # Displays on screen and processes events    
     def display(self): 
